@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
-import classes from './EventForm.module.css';
+import classes from './ContactForm.module.css';
 
-function EventForm({ method, event }) {
+function ContactForm({ method, Contact }) {
   const navigate = useNavigate();
   function cancelHandler() {
     navigate('..');
@@ -36,4 +36,4 @@ function EventForm({ method, event }) {
   );
 }
 
-export default EventForm;
+export default ContactForm;

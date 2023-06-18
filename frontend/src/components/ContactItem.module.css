@@ -1,10 +1,10 @@
-.event {
+.contact {
   max-width: 50rem;
   margin: 2rem auto;
   text-align: center;
 }
 
-.event img {
+.contact img {
   width: 30rem;
   border-radius: 4px;
 }
