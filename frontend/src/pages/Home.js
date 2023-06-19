@@ -1,5 +1,9 @@
+import PageContent from "../components/PageContent";
+
 function HomePage() {
-    return <h1>HomePage</h1>;
+    return (
+        <PageContent children="HomePage" />
+    );
 }
 
 export default HomePage;
