@@ -64,12 +64,12 @@ export async function action({request, params}) {
   }
   try {
     if (method === "POST") {
-      await axios.post(`${process.env.REACT_APP_BASE_URL}/contacts`, {
+      await axios.post(`http://localhost:8080/contacts`, {
         contactData
       })
     } else {
       const contactId = params.contactId;
-       await axios.patch(`${process.env.REACT_APP_BASE_URL}/contacts/` + contactId, {
+       await axios.patch(`http://localhost:8080/contacts/` + contactId, {
         contactData
       })
     }

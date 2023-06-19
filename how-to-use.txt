@@ -9,3 +9,6 @@ The React app dev server is then also started via "npm start" (though inside the
 
 You MUST have both servers (backend + frontend) up and running for the projects to work.
 
+In real project we should using .env or something like this to protect some sensitive data. (connection string MongoDB, account api server ...).
+But this is test project so I push directly into code, this is knowledge issue.
+

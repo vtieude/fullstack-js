@@ -1,6 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
 
-var url = `mongodb+srv://contact:${process.env.pdw}@testingcontact.wf4sakf.mongodb.net/?retryWrites=true&w=majority`;
+var url = 'mongodb+srv://contact:mbaowgXjqSTATiqb@testingcontact.wf4sakf.mongodb.net/?retryWrites=true&w=majority';
 const client = new MongoClient(url);
 let conn;
 let _db;

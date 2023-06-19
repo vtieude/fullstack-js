@@ -14,7 +14,7 @@ export default ContactPage;
 export async function loader({ request, params}) {
     const id = params.contactId;
     try {
-        const response = await axiosInstance.get(`${process.env.REACT_APP_BASE_URL}/contacts/` + id);
+        const response = await axiosInstance.get(`http://localhost:8080/contacts/` + id);
         return response.data;  
     } catch (error) {
         throw json(error);
@@ -25,7 +25,7 @@ export async function loader({ request, params}) {
 export async function action({params, request}) {
     const contactId = params.contactId;
     try {
-        const response = await axiosInstance.delete(`${process.env.REACT_APP_BASE_URL}/contacts/` + contactId, {
+        const response = await axiosInstance.delete(`http://localhost:8080/contacts/` + contactId, {
             method: request.method
         });
         console.log(response);

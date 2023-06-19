@@ -12,7 +12,7 @@ export default ContactsPage;
 
 export async function loader() {
     try {
-        const response = await axiosInstance.get(`${process.env.REACT_APP_BASE_URL}/contacts`);
+        const response = await axiosInstance.get(`http://localhost:8080/contacts`);
         const resData = await response.data;
         return resData.contacts;
     } catch (error) {
