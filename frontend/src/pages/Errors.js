@@ -6,11 +6,8 @@ function ErrorPage() {
   const error = useRouteError();
   let title = "Error";
   let message = "Something went wrong";
-  console.log(error);
-  if (error.status !== 200) {
-    const data = JSON.parse(error.data);
-    message =  data.message;
-  }
+  const data = error?.data;
+  message =  data?.message;
   return (
     <>
     <MainNavigation></MainNavigation>
