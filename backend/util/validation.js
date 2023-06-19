@@ -23,10 +23,6 @@ function validateContact(data) {
     errors.name = 'Invalid name.';
   }
 
-  if (!isValidText(data.description)) {
-    errors.description = 'Invalid description.';
-  }
-
   if (!!data.date && !isValidDate(data.date)) {
     errors.date = 'Invalid date.';
   }

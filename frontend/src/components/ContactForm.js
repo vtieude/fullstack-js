@@ -1,7 +1,7 @@
 import { useNavigate, Form, useNavigation, useActionData } from 'react-router-dom';
 import axios from "axios";
 import { redirect } from 'react-router-dom';
-
+import {  toast } from 'react-toastify';
 
 import classes from './ContactForm.module.css';
 
@@ -18,7 +18,7 @@ function ContactForm({ method, contact }) {
     <Form method={method} className={classes.form}>
       {data && data.errors && <ul>
           {Object.values(data.errors).map(err => 
-            <li>{err}</li>)}
+            <li className={classes.required}>{err}</li>)}
         </ul>}
       <p>
         <label htmlFor="name">Name</label>
@@ -42,7 +42,7 @@ function ContactForm({ method, contact }) {
       </p>
       <p>
         <label htmlFor="description">Description</label>
-        <textarea id="description" name="description" rows="5" defaultValue={contact?.description} required />
+        <textarea id="description" name="description" rows="5" defaultValue={contact?.description} />
       </p>
       <div className={classes.actions}>
         <button type="button" onClick={cancelHandler} disabled={isSubmit}>
@@ -71,12 +71,14 @@ export async function action({request, params}) {
     if (method === "POST") {
       await axios.post(`http://localhost:8080/contacts`, {
         contactData
-      })
+      });
+      toast.success('Created new contact: ' + contactData.name);
     } else {
       const contactId = params.contactId;
        await axios.patch(`http://localhost:8080/contacts/` + contactId, {
         contactData
-      })
+      });
+      toast.success('Updated contact: ' + contactData.name);
     }
   } catch (error) {
     console.log('er', error);

@@ -12,3 +12,5 @@ You MUST have both servers (backend + frontend) up and running for the projects 
 In real project we should using .env or something like this to protect some sensitive data. (connection string MongoDB, account api server ...).
 But this is test project so I push directly into code, this is knowledge issue.
 
+This test project includes CRUD functionality for a contact book. It is designed for a single user and is easy to use.
+
