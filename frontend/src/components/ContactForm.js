@@ -1,4 +1,4 @@
-import { useNavigate, Form, useNavigation } from 'react-router-dom';
+import { useNavigate, Form, useNavigation, useActionData } from 'react-router-dom';
 import axios from "axios";
 import { redirect } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ import classes from './ContactForm.module.css';
 function ContactForm({ method, contact }) {
   const navigate = useNavigate();
   const navigation = useNavigation();
+  const data = useActionData();
   const isSubmit = navigation.state === 'submitting';
   function cancelHandler() {
     navigate('..');
@@ -15,6 +16,10 @@ function ContactForm({ method, contact }) {
 
   return (
     <Form method={method} className={classes.form}>
+      {data && data.errors && <ul>
+          {Object.values(data.errors).map(err => 
+            <li>{err}</li>)}
+        </ul>}
       <p>
         <label htmlFor="name">Name</label>
         <input id="name" type="text" name="name" defaultValue={contact?.name} required />
@@ -25,7 +30,7 @@ function ContactForm({ method, contact }) {
       </p>
       <p>
         <label htmlFor="email">Email</label>
-        <input id="email" type="text" name="email" defaultValue={contact?.phone} required />
+        <input id="email" type="text" name="email" defaultValue={contact?.email} required />
       </p>
       <p>
         <label htmlFor="image">ImageUrl</label>
@@ -74,7 +79,12 @@ export async function action({request, params}) {
       })
     }
   } catch (error) {
-    throw new  Response(JSON.stringify({ message: error.message}), { status: error.status}); 
+    console.log('er', error);
+    if (error.response?.status === 422) {
+      return error.response.data;
+    } else {
+      throw new  Response(JSON.stringify({ message: error.message}), { status: error.status}); 
+    }
   }
   
 

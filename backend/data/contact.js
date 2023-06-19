@@ -2,7 +2,7 @@ const { getDB } = require('./mydb');
 
 const { ObjectId } = require('mongodb');
 
-async function readData() {
+async function getContact() {
   try {
   const dataDb = await getDB().collection("contact").find().toArray();
   return dataDb;
@@ -11,7 +11,7 @@ async function readData() {
   }
 }
 
-async function readDataById(id) {
+async function getContactById(id) {
   try {
   const dataDb = await getDB().collection("contact").findOne({_id: new ObjectId(id)});
   return dataDb;
@@ -20,26 +20,26 @@ async function readDataById(id) {
   }
 }
 
-async function writeData(data) {
+async function insertContact(data) {
   await getDB().collection("contact").insertOne(data);
 }
 
 async function getAll() {
-  const storedData = await readData();
+  const storedData = await getContact();
   return storedData;
 }
 
 async function get(id) {
-  const storedData = await readDataById(id);
+  const storedData = await getContactById(id);
   console.log(storedData);
   return storedData;
 }
 
 async function add(data) {
-  await writeData({ ...data, _id:  new ObjectId() });
+  await insertContact({ ...data, _id:  new ObjectId() });
 }
 
-async function replace(id, data) {
+async function updateContact(id, data) {
   try {
     const dataDb = await getDB().collection("contact").updateOne({_id: new ObjectId(id)}, {$set:data});
     return dataDb;
@@ -49,7 +49,7 @@ async function replace(id, data) {
 
 }
 
-async function remove(id) {
+async function deleteContact(id) {
   try {
   await getDB().collection("contact").deleteOne({_id: new ObjectId(id)});
     console.log('delete success');
@@ -61,5 +61,5 @@ async function remove(id) {
 exports.getAll = getAll;
 exports.get = get;
 exports.add = add;
-exports.replace = replace;
-exports.remove = remove;
+exports.replace = updateContact;
+exports.remove = deleteContact;

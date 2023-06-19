@@ -2,9 +2,7 @@ const express = require('express');
 
 const { getAll, get, add, replace, remove } = require('../data/contact');
 const {
-  isValidText,
-  isValidDate,
-  isValidImageUrl,
+  validateContact
 } = require('../util/validation');
 
 const router = express.Router();
@@ -29,23 +27,7 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   const data = req.body.contactData;
-  let errors = {};
-
-  if (!isValidText(data.name)) {
-    errors.name = 'Invalid name.';
-  }
-
-  if (!isValidText(data.description)) {
-    errors.description = 'Invalid description.';
-  }
-
-  if (!!data.date && !isValidDate(data.date)) {
-    errors.date = 'Invalid date.';
-  }
-
-  if (!!data.image && !isValidImageUrl(data.image)) {
-    errors.image = 'Invalid image.';
-  }
+  const errors = validateContact(data);
 
   if (Object.keys(errors).length > 0) {
     return res.status(422).json({
@@ -65,23 +47,7 @@ router.post('/', async (req, res, next) => {
 router.patch('/:id', async (req, res, next) => {
   const data = req.body.contactData;
 
-  let errors = {};
-
-  if (!isValidText(data.name)) {
-    errors.name = 'Invalid name.';
-  }
-
-  if (!isValidText(data.description)) {
-    errors.description = 'Invalid description.';
-  }
-
-  if (!!data.date && !isValidDate(data.date)) {
-    errors.date = 'Invalid date.';
-  }
-
-  if (!!data.image && !isValidImageUrl(data.image)) {
-    errors.image = 'Invalid image.';
-  }
+  const errors= validateContact(data);
 
   if (Object.keys(errors).length > 0) {
     return res.status(422).json({
