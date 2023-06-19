@@ -2,7 +2,11 @@ import { Link, useSubmit } from 'react-router-dom';
 import classes from './ContactItem.module.css';
 
 function ContactItem({ contact }) {
+ 
   const submit = useSubmit();
+  if(!contact) {
+    return <p>Contact Invalid</p>;
+  }
   function startDeleteHandler() {
     const confirmProcess = window.confirm('Confirm delete?');
     if (confirmProcess) {
@@ -12,10 +16,12 @@ function ContactItem({ contact }) {
 
   return (
     <article className={classes.contact}>
-      <img src={contact.image} alt={contact.name} />
+      <img src={contact.image} alt={contact._id} />
       <h1>ContactName: {contact.name}</h1>
-      <time>BirthDate: {contact.date}</time>
-      <p>Note: {contact.description}</p>
+      <h3>Email: {contact.email}</h3>
+      <p>PhoneNumber: {contact.phone}</p>
+      <time className={!!contact.date ? '' : classes.hidden}>BirthDate: {contact.date}</time>
+      <p className={!!contact.description ? '' : classes.hidden}>Note: {contact.description}</p>
       <menu className={classes.actions}>
         <Link to="edit">Edit</Link>
         <button onClick={startDeleteHandler}>Delete</button>

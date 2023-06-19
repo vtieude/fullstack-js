@@ -43,7 +43,7 @@ router.post('/', async (req, res, next) => {
     errors.date = 'Invalid date.';
   }
 
-  if (!isValidImageUrl(data.image)) {
+  if (!!data.image && !isValidImageUrl(data.image)) {
     errors.image = 'Invalid image.';
   }
 
@@ -79,7 +79,7 @@ router.patch('/:id', async (req, res, next) => {
     errors.date = 'Invalid date.';
   }
 
-  if (!isValidImageUrl(data.image)) {
+  if (!!data.image && !isValidImageUrl(data.image)) {
     errors.image = 'Invalid image.';
   }
 

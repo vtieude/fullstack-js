@@ -5,7 +5,7 @@
 import { RouterProvider, createBrowserRouter} from 'react-router-dom';
 import HomePage from './pages/Home';
 import ContactsPage,  {loader as contactsLoader} from './pages/Contacts';
-import ContactPage, {action, loader as contactDetailLoader, action as deleteContactAction} from './pages/ContactDetail';
+import ContactPage, {loader as contactDetailLoader, action as deleteContactAction} from './pages/ContactDetail';
 import NewContactPage from './pages/NewContact';
 import EditContactPage from './pages/EditContact';
 import RootLayout from './pages/Root';

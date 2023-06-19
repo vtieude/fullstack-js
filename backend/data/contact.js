@@ -1,66 +1,61 @@
-const fs = require('node:fs/promises');
+const { getDB } = require('./mydb');
 
-const { v4: generateId } = require('uuid');
-
-const { NotFoundError } = require('../util/errors');
+const { ObjectId } = require('mongodb');
 
 async function readData() {
-  const data = await fs.readFile('contacts.json', 'utf8');
-  return JSON.parse(data);
+  try {
+  const dataDb = await getDB().collection("contact").find().toArray();
+  return dataDb;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function readDataById(id) {
+  try {
+  const dataDb = await getDB().collection("contact").findOne({_id: new ObjectId(id)});
+  return dataDb;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function writeData(data) {
-  await fs.writeFile('contacts.json', JSON.stringify(data));
+  await getDB().collection("contact").insertOne(data);
 }
 
 async function getAll() {
   const storedData = await readData();
-  if (!storedData.contacts) {
-    throw new NotFoundError('Could not find any contacts.');
-  }
-  return storedData.contacts;
+  return storedData;
 }
 
 async function get(id) {
-  const storedData = await readData();
-  if (!storedData.contacts || storedData.contacts.length === 0) {
-    throw new NotFoundError('Could not find any contacts.');
-  }
-
-  const event = storedData.contacts.find((ev) => ev.id === id);
-  if (!event) {
-    throw new NotFoundError('Could not find event for id ' + id);
-  }
-
-  return event;
+  const storedData = await readDataById(id);
+  console.log(storedData);
+  return storedData;
 }
 
 async function add(data) {
-  const storedData = await readData();
-  storedData.contacts.unshift({ ...data, id: generateId() });
-  await writeData(storedData);
+  await writeData({ ...data, _id:  new ObjectId() });
 }
 
 async function replace(id, data) {
-  const storedData = await readData();
-  if (!storedData.contacts || storedData.contacts.length === 0) {
-    throw new NotFoundError('Could not find any contacts.');
-  }
+  try {
+    const dataDb = await getDB().collection("contact").updateOne({_id: new ObjectId(id)}, {$set:data});
+    return dataDb;
+    } catch (error) {
+      console.log(error);
+    }
 
-  const index = storedData.contacts.findIndex((ev) => ev.id === id);
-  if (index < 0) {
-    throw new NotFoundError('Could not find event for id ' + id);
-  }
-
-  storedData.contacts[index] = { ...data, id };
-
-  await writeData(storedData);
 }
 
 async function remove(id) {
-  const storedData = await readData();
-  const updatedData = storedData.contacts.filter((ev) => ev.id !== id);
-  await writeData({contacts: updatedData});
+  try {
+  await getDB().collection("contact").deleteOne({_id: new ObjectId(id)});
+    console.log('delete success');
+  } catch (error) {
+    console.log('error delete', error);
+  }
 }
 
 exports.getAll = getAll;

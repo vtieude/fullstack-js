@@ -20,8 +20,16 @@ function ContactForm({ method, contact }) {
         <input id="name" type="text" name="name" defaultValue={contact?.name} required />
       </p>
       <p>
+        <label htmlFor="phone">PhoneNumber</label>
+        <input id="phone" type="number" name="phone" defaultValue={contact?.phone} required />
+      </p>
+      <p>
+        <label htmlFor="email">Email</label>
+        <input id="email" type="text" name="email" defaultValue={contact?.phone} required />
+      </p>
+      <p>
         <label htmlFor="image">ImageUrl</label>
-        <input id="image" type="url" name="image" defaultValue={contact?.image} required />
+        <input id="image" type="url" name="image" defaultValue={contact?.image} />
       </p>
       <p>
         <label htmlFor="date">BirthDate</label>
@@ -50,6 +58,8 @@ export async function action({request, params}) {
       name: data.get('name'),
       image: data.get('image'),
       date: data.get('date'),
+      phone: data.get('phone'),
+      email: data.get('email'),
       description: data.get('description')
   }
   try {

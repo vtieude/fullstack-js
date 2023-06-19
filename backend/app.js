@@ -1,5 +1,9 @@
 const bodyParser = require('body-parser');
+
 const express = require('express');
+require('dotenv').config();
+const { connectDb } = require('./data/mydb');
+
 
 const contactRoutes = require('./routes/contacts');
 
@@ -21,4 +25,11 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message });
 });
 
-app.listen(8080);
+connectDb().then(() => {
+  app.listen(8080, () => {
+    console.log('Server is listening on port 8080')
+  });
+}).catch((error) => {
+  console.log('App error', JSON.stringify(error));
+})
+
