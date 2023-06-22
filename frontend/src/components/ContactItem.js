@@ -17,9 +17,9 @@ function ContactItem({ contact }) {
   return (
     <article className={classes.contact}>
       <img src={contact.image} alt={contact._id} />
-      <h1>ContactName: {contact.name}</h1>
+      <h1>Name: {contact.name}</h1>
       <h3>Email: {contact.email}</h3>
-      <p>PhoneNumber: {contact.phone}</p>
+      <h3>PhoneNumber: {contact.phone}</h3>
       <time className={!!contact.date ? '' : classes.hidden}>BirthDate: {contact.date}</time>
       <p className={!!contact.description ? '' : classes.hidden}>Note: {contact.description}</p>
       <menu className={classes.actions}>
