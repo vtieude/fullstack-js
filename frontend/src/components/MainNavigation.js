@@ -12,6 +12,9 @@ function MainNavigation() {
           <li>
             <NavLink to="/contacts" className={({isActive}) => isActive ? classes.active : undefined}>Contacts</NavLink>
           </li>
+          <li>
+            <NavLink to="/auth" className={({isActive}) => isActive ? classes.active : undefined}>Authentication</NavLink>
+          </li>
         </ul>
       </nav>
     </header>
