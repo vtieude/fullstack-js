@@ -1,7 +1,7 @@
 const express = require('express');
 const { add, get } = require('../data/user');
 const { createJSONToken, isValidPassword } = require('../util/auth');
-const { isValidEmail, isValidText } = require('../util/validation');
+const { isValidEmailAddress, isValidText } = require('../util/validation');
 
 const router = express.Router();
 
@@ -9,7 +9,7 @@ router.post('/signup', async (req, res, next) => {
   const data = req.body;
   let errors = {};
 
-  if (!isValidEmail(data.email)) {
+  if (!isValidEmailAddress(data.email)) {
     errors.email = 'Invalid email.';
   } else {
     try {

@@ -5,7 +5,10 @@ const {
   validateContact
 } = require('../util/validation');
 
+const { checkAuth } = require('../util/auth');
+
 const router = express.Router();
+router.use(checkAuth);
 
 router.get('/', async (req, res, next) => {
   try {
@@ -24,6 +27,7 @@ router.get('/:id', async (req, res, next) => {
     next(error);
   }
 });
+
 
 router.post('/', async (req, res, next) => {
   const data = req.body.contactData;

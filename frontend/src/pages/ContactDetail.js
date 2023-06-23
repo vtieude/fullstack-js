@@ -25,12 +25,11 @@ export async function loader({ request, params}) {
 export async function action({params, request}) {
     const contactId = params.contactId;
     try {
-        const response = await axiosInstance.delete(`http://localhost:8080/contacts/` + contactId, {
-            method: request.method
-        });
-        console.log(response);
+        const response = await axiosInstance.delete(`http://localhost:8080/contacts/` + contactId);
+        console.log('delete', response);
     } catch (error) {
-        throw json(error); 
+        console.log('error when delete contact', error);
+        throw json(error.response); 
     }
    
     

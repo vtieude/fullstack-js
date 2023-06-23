@@ -37,3 +37,5 @@ function validateContact(data) {
 }
 
 exports.validateContact = validateContact;
+exports.isValidEmailAddress = isValidEmailAddress;
+exports.isValidText = isValidText;

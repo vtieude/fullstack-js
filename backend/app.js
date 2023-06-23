@@ -6,6 +6,7 @@ const { connectDb } = require('./data/mydb');
 
 
 const contactRoutes = require('./routes/contacts');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
@@ -13,11 +14,12 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PATCH,DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
 
 app.use('/contacts', contactRoutes);
+app.use(authRoutes);
 
 app.use((error, req, res, next) => {
   const status = error.status || 500;

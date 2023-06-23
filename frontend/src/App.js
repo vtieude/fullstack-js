@@ -12,7 +12,7 @@ import RootLayout from './pages/Root';
 import ContactsRootLayout from './pages/ContactsRoot';
 import ErrorPage from './pages/Errors';
 import {action as contactEventAction} from './components/ContactForm';
-import AuthenticationPage from './pages/Authentication';
+import AuthenticationPage, {action as authAction} from './pages/Authentication';
 
 const router = createBrowserRouter([
   { path: '/', 
@@ -38,7 +38,8 @@ const router = createBrowserRouter([
       },
       {
         path: 'auth',
-        element: <AuthenticationPage />
+        element: <AuthenticationPage />,
+        action: authAction
       }
     ]
   }

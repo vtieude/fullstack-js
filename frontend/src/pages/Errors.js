@@ -7,7 +7,8 @@ function ErrorPage() {
   let title = "Error";
   let message = "Something went wrong";
   const data = error?.data;
-  message =  data?.message;
+  console.log('error page', error);
+  message = data?.data?.message ??  data?.message;
   return (
     <>
     <MainNavigation></MainNavigation>
